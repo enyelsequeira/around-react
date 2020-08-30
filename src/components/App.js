@@ -4,29 +4,41 @@ import Header from './Header';
 import Main from './Main';
 import PopupWithForm from './PopupWithForm';
 import ImagePopup from './ImagePopup';
+import Footer from './Footer';
 
 const App = () => {
-  const [isEditProfilPopupOpen, setIsEditProfilPopupOpen] = useState(false);
-  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
+  const [isOverLayon, setIsOverLayOn] = useState(false);
+  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
+  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
 
-  const handleEditAvatarClick = () => {
-    setIsEditProfilPopupOpen(true);
-  };
-
-  const handleEditProfileClick = () => {
-    setIsAddPlacePopupOpen(true);
-  };
-
-  const handleAddPlaceClick = () => {
-    setIsEditAvatarPopupOpen(true);
-  };
+  const [isImageOpen, setIsImageOpen] = useState(false);
+  const [imageBackground, setImageBackground] = useState('');
+  const [imageCaption, setImageCaption] = useState('');
 
   return (
-
     <div className="page">
       <Header />
-      <Main isEditProfilPopupOpen={isEditProfilPopupOpen} isAddPlacePopupOpen={isAddPlacePopupOpen} isEditAvatarPopupOpen={isEditAvatarPopupOpen} />
+      <Main
+        onEditAvatar={() => {
+          setIsEditAvatarPopupOpen(true);
+          setIsOverLayOn(true);
+        }}
+        onEditProfile={() => {
+          setIsEditProfilePopupOpen(true);
+          setIsOverLayOn(true);
+        }}
+        onAddCard={() => {
+          setIsAddPlacePopupOpen(true);
+          setIsOverLayOn(true);
+        }}
+        onCardClick={(link, caption) => {
+          setIsImageOpen(true);
+          setImageBackground(link);
+          setImageCaption(caption);
+          setIsOverLayOn(true);
+        }}
+      />
       <PopupWithForm title="Edit profile" name="edit" />
       <ImagePopup />
 
@@ -39,16 +51,11 @@ const App = () => {
             <button className="elements__image-heart" />
             <h4 className="elements__like-count">0</h4>
           </div>
-
         </li>
       </template>
 
-      <footer className="footer">
-        <p className="footer__text"> &#169; 2020 Around The U.S </p>
-      </footer>
-
+      <Footer />
     </div>
-
   );
 };
 export default App;
