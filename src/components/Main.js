@@ -36,9 +36,9 @@ const Main = (props) => {
         <div className="profile__info">
           <h2 className="profile__name">{name}</h2>
           <p className="profile__profession">{about}</p>
-          <button className="profile__info-btn">{props.onEditProfile} </button>
+          <button className="profile__info-btn" onClick={props.onEditProfile} />
         </div>
-        <button className="profile__button-add">{props.onAddCard} </button>
+        <button className="profile__button-add" onClick={props.onAddCard} />
       </section>
       <section className="elements">
         <ul className="elements__list">

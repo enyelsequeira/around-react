@@ -5,7 +5,8 @@ import React from 'react';
 const ImagePopup = (props) => {
   console.log(props);
   return (
-    <div className={props.isOpen ? 'modal__figure-image' : 'modal figure'}>
+    <div
+      className={props.isOpen ? 'modal figure modal_active' : 'modal figure'}>
       <div className="modal__figure-container">
         <button
           className="modal__close modal__figure-exit"
@@ -14,6 +15,7 @@ const ImagePopup = (props) => {
         <img
           className="modal__figure-image"
           style={{ backgroundImage: `url(${props.image})` }}
+          onClick={props.isOpen}
         />
         <p className="modal__figure-caption">{props.title}</p>
       </div>
