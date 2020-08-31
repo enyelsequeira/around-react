@@ -7,7 +7,6 @@ import ImagePopup from './ImagePopup';
 import Footer from './Footer';
 
 const App = () => {
-  const [isOverLayon, setIsOverLayOn] = useState(false);
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
@@ -22,37 +21,29 @@ const App = () => {
       <Main
         onEditAvatar={() => {
           setIsEditAvatarPopupOpen(true);
-          setIsOverLayOn(true);
         }}
         onEditProfile={() => {
           setIsEditProfilePopupOpen(true);
-          setIsOverLayOn(true);
         }}
         onAddCard={() => {
           setIsAddPlacePopupOpen(true);
-          setIsOverLayOn(true);
         }}
         onCardClick={(link, caption) => {
+          console.log(link, caption, 'helloooo');
           setIsImageOpen(true);
           setImageBackground(link);
           setImageCaption(caption);
-          setIsOverLayOn(true);
         }}
       />
-      <PopupWithForm title="Edit profile" name="edit" />
-      <ImagePopup />
 
-      <template className="elements__template">
-        <li className="elements__item">
-          <div className="elements__image" />
-          <button className="elements__trash" />
-          <div className="elements__info">
-            <h3 className="elements__title" />
-            <button className="elements__image-heart" />
-            <h4 className="elements__like-count">0</h4>
-          </div>
-        </li>
-      </template>
+      <ImagePopup
+        isOpen={isImageOpen}
+        title={imageCaption}
+        image={imageBackground}
+        onClose={() => {
+          setIsImageOpen(false);
+        }}
+      />
 
       <Footer />
     </div>

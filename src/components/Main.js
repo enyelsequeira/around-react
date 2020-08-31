@@ -3,6 +3,7 @@ import api from '../utils/Api.js';
 import Card from './Card.js';
 
 const Main = (props) => {
+  // console.log(props, 22222);22222);
   const [name, setName] = useState('');
   const [about, setAbout] = useState('');
   const [avatar, setAvatar] = useState('');
@@ -27,20 +28,21 @@ const Main = (props) => {
       <section className="profile">
         <div className="profile__avatar">
           <img className="profile__avatar-image" src={avatar} alt="profile" />
-          <button className="profile__avatar-overlay" />
+          <button
+            className="profile__avatar-overlay"
+            onClick={props.onEditAvatar}
+          />
         </div>
         <div className="profile__info">
-          <h2 className="profile__name"> </h2>
-          <p className="profile__profession" />
-          <button className="profile__info-btn"> </button>
+          <h2 className="profile__name">{name}</h2>
+          <p className="profile__profession">{about}</p>
+          <button className="profile__info-btn">{props.onEditProfile} </button>
         </div>
-        <button className="profile__button-add"> </button>
+        <button className="profile__button-add">{props.onAddCard} </button>
       </section>
       <section className="elements">
-        <ul className="elements__list" />
-        {cards.map((card, i) => {
-          console.log(card);
-          return (
+        <ul className="elements__list">
+          {cards.map((card, i) => (
             <Card
               key={i}
               image={card.link}
@@ -50,8 +52,8 @@ const Main = (props) => {
                 props.onCardClick(card.link, card.name);
               }}
             />
-          );
-        })}
+          ))}
+        </ul>
       </section>
     </main>
   );
