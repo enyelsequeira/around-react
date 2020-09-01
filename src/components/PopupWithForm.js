@@ -1,29 +1,34 @@
 import React from 'react';
 
-const PopupWithForm = (props) => (
+const PopupWithForm = ({
+  isOpen,
+  popupType,
+  onClose,
+  heading,
+  children,
+  buttonText,
+}) => (
   // console.log(props.popupType, props.isOpen);
   <div
-    // className={`props.isOpen ? ${props.popupType} && 'modal__active' : 'modal'`}
     className={
-      props.isOpen
-        ? `${props.popupType} modal_active modal`
-        : `${props.popupType} modal `
+      isOpen ? `${popupType} modal_active modal` : `${popupType} modal `
     }>
     <div className="modal__info">
       <button
         className="modal__close"
         aria-label="close modal"
         data-close
-        onClick={props.onClose}
+        type="button"
+        onClick={onClose}
       />
-      <p className="modal__title"> {props.heading}</p>
+      <p className="modal__title"> {heading}</p>
       <form className="modal__form">
-        {props.children}
+        {children}
         <button
           className="modal__save-button modal__save"
           type="submit"
           value="save">
-          {props.buttonText}
+          {buttonText}
         </button>
       </form>
     </div>

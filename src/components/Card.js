@@ -1,10 +1,11 @@
 /* eslint-disable jsx-a11y/control-has-associated-label */
 import React from 'react';
 
-const Card = ({ title, image, likeCount }) => (
+const Card = ({ title, image, likeCount, onCardImageClick }) => (
   <li className="elements__item">
     <div
       className="elements__image"
+      onClick={onCardImageClick}
       style={{ backgroundImage: `url(${image})` }}
     />
     <button className="elements__trash"> </button>

@@ -30,8 +30,8 @@ const App = () => {
           // console.log('adding cards');
           setIsAddPlacePopupOpen(true);
         }}
-        onCardClick={(link, caption) => {
-          console.log(link, caption, 'helloooo');
+        onCardImageClick={(link, caption) => {
+          // console.log(link, caption, 'helloooo');
           setIsImageOpen(true);
           setImageBackground(link);
           setImageCaption(caption);

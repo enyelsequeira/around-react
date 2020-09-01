@@ -2,25 +2,14 @@
 /* eslint-disable react/button-has-type */
 import React from 'react';
 
-const ImagePopup = (props) => {
-  console.log(props);
-  return (
-    <div
-      className={props.isOpen ? 'modal figure modal_active' : 'modal figure'}>
-      <div className="modal__figure-container">
-        <button
-          className="modal__close modal__figure-exit"
-          onClick={props.onClose}
-        />
-        <img
-          className="modal__figure-image"
-          style={{ backgroundImage: `url(${props.image})` }}
-          onClick={props.isOpen}
-        />
-        <p className="modal__figure-caption">{props.title}</p>
-      </div>
+const ImagePopup = ({ isOpen, onClose, image, title }) => (
+  // console.log(props.image);
+  <div className={isOpen ? 'modal figure modal_active' : 'modal figure'}>
+    <div className="modal__figure-container">
+      <button className="modal__close modal__figure-exit" onClick={onClose} />
+      <img className="modal__figure-image" src={image} onClick={isOpen} />
+      <p className="modal__figure-caption">{title}</p>
     </div>
-  );
-};
-
+  </div>
+);
 export default ImagePopup;
