@@ -120,6 +120,11 @@ const App = () => {
         />
         <span id="profile-url-error" className="modal__formerror" />
       </PopupWithForm>
+      <PopupWithForm
+        heading="Are you sure"
+        buttonText="yes"
+        popupType="modal__deleteimage"
+      />
 
       <ImagePopup
         isOpen={isImageOpen}

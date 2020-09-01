@@ -27,7 +27,8 @@ const PopupWithForm = ({
         <button
           className="modal__save-button modal__save"
           type="submit"
-          value="save">
+          value="save"
+          disabled>
           {buttonText}
         </button>
       </form>

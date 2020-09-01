@@ -8,7 +8,7 @@ const Card = ({ title, image, likeCount, onCardImageClick }) => (
       onClick={onCardImageClick}
       style={{ backgroundImage: `url(${image})` }}
     />
-    <button className="elements__trash"> </button>
+    <button className="elements__trash" type="button" />
     <div className="elements__info">
       <h3 className="elements__title">{title}</h3>
       <button className="elements__image-heart" type="button" name="like" />
