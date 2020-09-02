@@ -2,8 +2,6 @@
 import React from 'react';
 
 const Card = ({ title, image, likeCount, onCardImageClick }) => (
-  // console.log(title);
-
   <li className="elements__item">
     <div
       className="elements__image"

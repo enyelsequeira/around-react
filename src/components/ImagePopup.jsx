@@ -3,7 +3,6 @@
 import React from 'react';
 
 const ImagePopup = ({ isOpen, onClose, image, title }) => (
-  // console.log(props.image);
   <div className={isOpen ? 'modal figure modal_active' : 'modal figure'}>
     <div className="modal__figure-container">
       <button className="modal__close modal__figure-exit" onClick={onClose} />

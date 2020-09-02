@@ -23,15 +23,12 @@ const App = () => {
           setIsEditAvatarPopupOpen(true);
         }}
         onEditProfile={() => {
-          // console.log('helloo from main');
           setIsEditProfilePopupOpen(true);
         }}
         onAddCard={() => {
-          // console.log('adding cards');
           setIsAddPlacePopupOpen(true);
         }}
         onCardImageClick={(link, caption) => {
-          // console.log(link, caption, 'helloooo');
           setIsImageOpen(true);
           setImageBackground(link);
           setImageCaption(caption);

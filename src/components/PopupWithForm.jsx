@@ -8,7 +8,6 @@ const PopupWithForm = ({
   children,
   buttonText,
 }) => (
-  // console.log(props.popupType, props.isOpen);
   <div
     className={
       isOpen ? `${popupType} modal_active modal` : `${popupType} modal `
