@@ -7,21 +7,32 @@ const Main = ({ onCardImageClick, onAddCard, onEditAvatar, onEditProfile }) => {
   const [name, setName] = useState('');
   const [about, setAbout] = useState('');
   const [avatar, setAvatar] = useState('');
+  const [cards, setCards] = useState([]);
 
+  // useEffect(() => {
+  //   api.getUserInfo().then((res) => {
+  //     setAvatar(res.avatar);
+  //     setName(res.name);
+  //     setAbout(res.about);
+  //   });
+  // }, [name, about, avatar]);
   useEffect(() => {
     api.getUserInfo().then((res) => {
       setAvatar(res.avatar);
       setName(res.name);
       setAbout(res.about);
     });
-  }, [name, about, avatar]);
-
-  const [cards, setCards] = useState([]);
-  useEffect(() => {
-    api.getCardList().then((res) => {
-      setCards(res);
-    });
-  }, [setCards]);
+    return () => {
+      api.getCardList().then((res) => {
+        setCards(res);
+      });
+    };
+  }, [setCards, name, about, avatar]);
+  // useEffect(() => {
+  //   api.getCardList().then((res) => {
+  //     setCards(res);
+  //   });
+  // }, [setCards]);
 
   return (
     <main>
