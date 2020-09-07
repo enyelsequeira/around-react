@@ -3,24 +3,28 @@
 import React, { useState, useEffect } from 'react';
 import api from '../utils/Api.js';
 import Card from './Card.jsx';
+import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
 const Main = ({ onCardImageClick, onAddCard, onEditAvatar, onEditProfile }) => {
   const [userData, setUserData] = useState({});
   const [cards, setCards] = useState([]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const [fetchedData, fetchedCards] = await Promise.all([
-        api.getUserInfo(),
-        api.getCardList(),
-      ]);
+  const userInfo = React.useContext(CurrentUserContext);
+  console.log(userInfo, 'from main');
 
-      setUserData(fetchedData);
-      setCards(fetchedCards);
-    };
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     const [fetchedData, fetchedCards] = await Promise.all([
+  //       api.getUserInfo(),
+  //       api.getCardList(),
+  //     ]);
 
-    fetchData();
-  }, []);
+  //     setUserData(fetchedData);
+  //     setCards(fetchedCards);
+  //   };
+
+  //   fetchData();
+  // }, []);
 
   return (
     <main>
@@ -28,14 +32,14 @@ const Main = ({ onCardImageClick, onAddCard, onEditAvatar, onEditProfile }) => {
         <div className="profile__avatar">
           <img
             className="profile__avatar-image"
-            src={userData.avatar}
+            src={userInfo.avatar}
             alt="profile"
           />
           <button className="profile__avatar-overlay" onClick={onEditAvatar} />
         </div>
         <div className="profile__info">
-          <h2 className="profile__name">{userData.name}</h2>
-          <p className="profile__profession">{userData.about}</p>
+          <h2 className="profile__name">{userInfo.name}</h2>
+          <p className="profile__profession">{userInfo.about}</p>
           <button
             className="profile__info-btn"
             type="button"
