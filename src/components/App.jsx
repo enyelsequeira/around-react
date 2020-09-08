@@ -57,7 +57,8 @@ const App = () => {
           isOpen={isEditProfilePopupOpen}
           onClose={() => {
             setIsEditProfilePopupOpen(false);
-          }}>
+          }}
+        >
           <input
             id="profile-name"
             className="modal__form-name modal__input"
@@ -90,7 +91,8 @@ const App = () => {
           isOpen={isAddPlacePopupOpen}
           onClose={() => {
             setIsAddPlacePopupOpen(false);
-          }}>
+          }}
+        >
           <input
             id="card-title"
             className="modal__form-name modal__form-title  modal__input"
@@ -121,7 +123,8 @@ const App = () => {
           isOpen={isEditAvatarPopupOpen}
           onClose={() => {
             setIsEditAvatarPopupOpen(false);
-          }}>
+          }}
+        >
           <input
             id="profile-url"
             type="url"

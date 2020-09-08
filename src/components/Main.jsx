@@ -10,8 +10,17 @@ const Main = ({ onCardImageClick, onAddCard, onEditAvatar, onEditProfile }) => {
   const [cards, setCards] = useState([]);
 
   const userInfo = React.useContext(CurrentUserContext);
-  console.log(userInfo, 'from main');
 
+  useEffect(() => {
+    api.getCardList().then((res) => {
+      // console.log(res);
+      setCards(res);
+    });
+  }, []);
+
+  const handleCardDelete = (card) => {
+    // console.log(card.owner);
+  };
   // useEffect(() => {
   //   const fetchData = async () => {
   //     const [fetchedData, fetchedCards] = await Promise.all([
@@ -53,12 +62,14 @@ const Main = ({ onCardImageClick, onAddCard, onEditAvatar, onEditProfile }) => {
           {cards.map((card, i) => (
             <Card
               key={i}
+              card={card}
               image={card.link}
               title={card.name}
               likeCount={card.likes.length}
               onCardImageClick={() => {
                 onCardImageClick(card.link, card.name);
               }}
+              onCardDelete={handleCardDelete(card)}
             />
           ))}
         </ul>
