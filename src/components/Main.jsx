@@ -63,13 +63,8 @@ const Main = ({ onCardImageClick, onAddCard, onEditAvatar, onEditProfile }) => {
             <Card
               key={i}
               card={card}
-              image={card.link}
-              title={card.name}
-              likeCount={card.likes.length}
-              onCardImageClick={() => {
-                onCardImageClick(card.link, card.name);
-              }}
-              onCardDelete={handleCardDelete(card)}
+              onCardImageClick={() => onCardImageClick(card.link, card.name)}
+              onCardDelete={() => handleCardDelete(card)}
             />
           ))}
         </ul>
