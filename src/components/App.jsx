@@ -2,7 +2,10 @@
 import React, { useState, useEffect } from 'react';
 import Header from './Header';
 import Main from './Main';
-import PopupWithForm from './PopupWithForm';
+import PopupWithForm from './PopUpWithForm';
+import AddCard from './AddCard';
+import EditProfile from './EditProfile';
+import EditAvatar from './EditAvatar';
 import ImagePopup from './ImagePopup';
 import Footer from './Footer';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
@@ -12,20 +15,25 @@ const App = () => {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
+  const [isDeletePlacePopupOpen, setIsDeletePlacePopupOpen] = useState(false);
 
   const [isImageOpen, setIsImageOpen] = useState(false);
   const [imageBackground, setImageBackground] = useState('');
   const [imageCaption, setImageCaption] = useState('');
 
   const [currentUser, setCurrentUser] = useState('');
+  const [cards, setCards] = useState([]);
+  const [currentlySelectedCard, setCurrentlySelectedCard] = useState([]);
 
   useEffect(() => {
-    const fetchUserInfo = async () => {
-      const userInfo = await api.getUserInfo();
-      setCurrentUser(userInfo);
+    const fetchData = async () => {
+      const [fetchedData, fetchedCards] = await Promise.all([api.getUserInfo(), api.getCardList()]);
+
+      setCurrentUser(fetchedData);
+      setCards(fetchedCards);
     };
 
-    fetchUserInfo();
+    fetchData();
   }, []);
 
   return (
@@ -34,6 +42,10 @@ const App = () => {
         {/* {console.log(currentUser)} */}
         <Header />
         <Main
+          setCurrentlySelectedCard={setCurrentlySelectedCard}
+          setIsDeletePlacePopupOpen={setIsDeletePlacePopupOpen}
+          cards={cards}
+          setCards={setCards}
           onEditAvatar={() => {
             setIsEditAvatarPopupOpen(true);
           }}
@@ -50,95 +62,41 @@ const App = () => {
           }}
         />
 
-        <PopupWithForm
+        <EditProfile
           heading="Edit Profile"
           buttonText="Save"
           popupType="modal__edit"
           isOpen={isEditProfilePopupOpen}
-          onClose={() => {
-            setIsEditProfilePopupOpen(false);
-          }}
-        >
-          <input
-            id="profile-name"
-            className="modal__form-name modal__input"
-            type="text"
-            name="name"
-            placeholder="Jacques"
-            required
-            maxLength="40"
-            minLength="2"
-          />
-          <span id="profile-name-error" className="modal__formerror" />
+          onClose={() => setIsEditProfilePopupOpen(false)}
+          setCurrentUser={setCurrentUser}
+        />
 
-          <input
-            id="profile-text"
-            className="modal__form-profession modal__input"
-            type="text"
-            name="job"
-            placeholder="Explorer"
-            required
-            maxLength="200"
-            minLength="2"
-          />
-          <span id="profile-text-error" className="modal__formerror" />
-        </PopupWithForm>
-
-        <PopupWithForm
+        <AddCard
           heading="New Place"
           buttonText="Create"
           popupType="modal__card"
           isOpen={isAddPlacePopupOpen}
-          onClose={() => {
-            setIsAddPlacePopupOpen(false);
-          }}
-        >
-          <input
-            id="card-title"
-            className="modal__form-name modal__form-title  modal__input"
-            type="text"
-            name="Title"
-            value="ImageTitle"
-            required
-            maxLength="30"
-            minLength="1"
-          />
-          <span id="card-title-error" className="modal__formerror" />
+          setCards={setCards}
+          onClose={() => setIsAddPlacePopupOpen(false)}
+        />
 
-          <input
-            id="card-url"
-            type="url"
-            className="modal__form-profession modal__form-link  modal__input"
-            name="Imagelink"
-            value="image"
-            required
-          />
-          <span id="card-url-error" className="modal__formerror" />
-        </PopupWithForm>
-
-        <PopupWithForm
-          heading="Change Profile Picture"
-          buttonText="Save"
-          popupType="modal__addimage"
-          isOpen={isEditAvatarPopupOpen}
-          onClose={() => {
-            setIsEditAvatarPopupOpen(false);
-          }}
-        >
-          <input
-            id="profile-url"
-            type="url"
-            className="modal__form-profession modal__form-link modal__form-avatar  modal__input"
-            name="Imagelink"
-            placeholder="Image Link"
-            required
-          />
-          <span id="profile-url-error" className="modal__formerror" />
-        </PopupWithForm>
         <PopupWithForm
           heading="Are you sure"
           buttonText="yes"
           popupType="modal__deleteimage"
+          isOpen={isDeletePlacePopupOpen}
+          setCards={setCards}
+          currentlySelectedCard={currentlySelectedCard}
+          onClose={() => setIsDeletePlacePopupOpen(false)}
+        />
+
+        <EditAvatar
+          heading="Change Profile Picture"
+          buttonText="Save"
+          popupType="modal__addimage"
+          setCurrentUser={setCurrentUser}
+          isOpen={isEditAvatarPopupOpen}
+          onClose={() => setIsEditAvatarPopupOpen(false)}
         />
 
         <ImagePopup

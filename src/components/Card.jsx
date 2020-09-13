@@ -1,36 +1,47 @@
 /* eslint-disable jsx-a11y/control-has-associated-label */
-import React from 'react';
+import React, { useState } from 'react';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
+import api from '../utils/Api';
+import PopupWithForm from './PopUpWithForm';
 
-const Card = ({ card: { owner, link, name, likes }, onCardImageClick }) => {
+const Card = ({ card, onCardImageClick, setCards, setCurrentlySelectedCard, setIsDeletePlacePopupOpen }) => {
   const userInfo = React.useContext(CurrentUserContext);
   const currentUserId = userInfo._id;
-  // console.log({ card, currentUserId });
-  const isOwn = owner._id === currentUserId;
+  const isOwn = card.owner._id === currentUserId;
 
   const cardDeleteButtonClassName = `elements__trash ${
     isOwn ? 'elements__trash_visible' : 'elements__trash_hidden'
   }`;
 
-  const isLiked = likes.some((i) => i._id === userInfo._id);
-  console.log(isLiked);
+  const isLiked = card.likes.some((i) => i._id === currentUserId);
 
-  const likeButton = `${
-    isLiked ? 'elements__image-heart_active' : 'elements__image-heart'
-  }`;
+  const handleCardLike = async () => {
+    await api.changeLikeCardStatus(card._id, !isLiked);
+
+    setCards(await api.getCardList());
+  };
 
   return (
     <li className="elements__item">
       <div
         className="elements__image"
         onClick={onCardImageClick}
-        style={{ backgroundImage: `url(${link})` }}
+        style={{ backgroundImage: `url(${card.link})` }}
       />
-      <button className={cardDeleteButtonClassName} type="button" />
+      {isOwn && (
+      <button
+        className={cardDeleteButtonClassName}
+        type="button"
+        onClick={() => {
+          setIsDeletePlacePopupOpen(true);
+          setCurrentlySelectedCard(card);
+        }}
+      />
+      )}
       <div className="elements__info">
-        <h3 className="elements__title">{name}</h3>
-        <button className={likeButton} type="button" name="like" />
-        <h4 className="elements__like-count">{likes.length}</h4>
+        <h3 className="elements__title">{card.name}</h3>
+        <button onClick={handleCardLike} className={isLiked ? 'elements__image-heart_active elements__image-heart ' : 'elements__image-heart'} type="button" name="like" />
+        <h4 className="elements__like-count">{card.likes.length}</h4>
       </div>
     </li>
   );

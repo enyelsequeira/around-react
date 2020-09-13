@@ -5,35 +5,8 @@ import api from '../utils/Api.js';
 import Card from './Card.jsx';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
-const Main = ({ onCardImageClick, onAddCard, onEditAvatar, onEditProfile }) => {
-  const [userData, setUserData] = useState({});
-  const [cards, setCards] = useState([]);
-
+const Main = ({ onCardImageClick, onAddCard, onEditAvatar, onEditProfile, cards, setCurrentlySelectedCard, setCards, setIsDeletePlacePopupOpen, handleCardDelete }) => {
   const userInfo = React.useContext(CurrentUserContext);
-
-  useEffect(() => {
-    api.getCardList().then((res) => {
-      // console.log(res);
-      setCards(res);
-    });
-  }, []);
-
-  const handleCardDelete = (card) => {
-    // console.log(card.owner);
-  };
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     const [fetchedData, fetchedCards] = await Promise.all([
-  //       api.getUserInfo(),
-  //       api.getCardList(),
-  //     ]);
-
-  //     setUserData(fetchedData);
-  //     setCards(fetchedCards);
-  //   };
-
-  //   fetchData();
-  // }, []);
 
   return (
     <main>
@@ -61,10 +34,13 @@ const Main = ({ onCardImageClick, onAddCard, onEditAvatar, onEditProfile }) => {
         <ul className="elements__list">
           {cards.map((card, i) => (
             <Card
+              handleCardDelete={handleCardDelete}
+              setIsDeletePlacePopupOpen={setIsDeletePlacePopupOpen}
               key={i}
               card={card}
               onCardImageClick={() => onCardImageClick(card.link, card.name)}
-              onCardDelete={() => handleCardDelete(card)}
+              setCurrentlySelectedCard={setCurrentlySelectedCard}
+              setCards={setCards}
             />
           ))}
         </ul>
