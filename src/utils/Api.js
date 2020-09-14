@@ -15,12 +15,9 @@ class Api {
   getCardList() {
     return fetch(`${this._baseUrl}/cards`, {
       headers: this._headers,
-    })
-      .then((res) =>
-        res.ok ? res.json() : Promise.reject(`error${res.statusText}`)
-      )
-
-      .catch((err) => console.log(err));
+    }).then((res) =>
+      res.ok ? res.json() : Promise.reject(`error${res.statusText}`)
+    );
   }
 
   // GET https://around.nomoreparties.co/v1/groupId/users/me
@@ -28,13 +25,10 @@ class Api {
     // console.log(`${this._baseUrl}/users/me`);
     return fetch(`${this._baseUrl}/users/me`, {
       headers: this._headers,
-    })
-      .then((res) =>
-        // console.log('AAA', res);
-        res.ok ? res.json() : Promise.reject(`error${res.statusText}`)
-      )
-
-      .catch((err) => console.log(err));
+    }).then((res) =>
+      // console.log('AAA', res);
+      res.ok ? res.json() : Promise.reject(`error${res.statusText}`)
+    );
   }
 
   getPageInfo() {
@@ -51,12 +45,9 @@ class Api {
         name,
         about,
       }),
-    })
-      .then((res) =>
-        res.ok ? res.json() : Promise.reject(`error${res.statusText}`)
-      )
-
-      .catch((err) => console.log(err));
+    }).then((res) =>
+      res.ok ? res.json() : Promise.reject(`error${res.statusText}`)
+    );
   }
 
   // PATCH https://around.nomoreparties.co/v1/groupId/users/me/avatar
@@ -67,12 +58,9 @@ class Api {
       body: JSON.stringify({
         avatar,
       }),
-    })
-      .then((res) =>
-        res.ok ? res.json() : Promise.reject(`error${res.statusText}`)
-      )
-
-      .catch((err) => console.log(err));
+    }).then((res) =>
+      res.ok ? res.json() : Promise.reject(`error${res.statusText}`)
+    );
   }
 
   getAppInfo() {
@@ -88,12 +76,9 @@ class Api {
         name,
         link,
       }),
-    })
-      .then((res) =>
-        res.ok ? res.json() : Promise.reject(`error${res.statusText}`)
-      )
-
-      .catch((err) => console.log(err));
+    }).then((res) =>
+      res.ok ? res.json() : Promise.reject(`error${res.statusText}`)
+    );
   }
 
   // DELETE https://around.nomoreparties.co/v1/groupId/cards/cardId
@@ -102,12 +87,9 @@ class Api {
     return fetch(`${this._baseUrl}/cards/${cardId}`, {
       headers: this._headers,
       method: 'DELETE',
-    })
-      .then((res) =>
-        res.ok ? res.json() : Promise.reject(`error${res.statusText}`)
-      )
-
-      .catch((err) => console.log(err));
+    }).then((res) =>
+      res.ok ? res.json() : Promise.reject(`error${res.statusText}`)
+    );
   }
 
   // PUT https://around.nomoreparties.co/v1/groupId/cards/likes/cardId
@@ -122,12 +104,9 @@ class Api {
           headers: this._headers,
           method: 'DELETE',
         })
-    )
-      .then((res) =>
-        res.ok ? res.json() : Promise.reject(`error${res.statusText}`)
-      )
-
-      .catch((err) => console.log(err));
+    ).then((res) =>
+      res.ok ? res.json() : Promise.reject(`error${res.statusText}`)
+    );
   }
 }
 

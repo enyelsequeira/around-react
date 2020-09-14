@@ -29,7 +29,7 @@ const App = () => {
   const updateUser = (name, about) => {
     setCurrentUser({ ...currentUser, name, about });
 
-    api.setUserInfo({ name, about });
+    api.setUserInfo({ name, about }).catch((err) => console.log(err));
   };
 
   // const updateAvatar = (avatar) => {
@@ -45,7 +45,7 @@ const App = () => {
   useEffect(() => {
     api.getUserInfo().then((res) => {
       setCurrentUser(res);
-    });
+    }).catch((err) => console.log(err));
   }, []);
   // useEffect(() => {
   //   const fetchData = async () => {
@@ -61,7 +61,7 @@ const App = () => {
   useEffect(() => {
     api.getCardList().then((res) => {
       setCards(res);
-    });
+    }).then((err) => console.log(err));
   }, [setCards, cards]);
 
   const onAddPlace = (newCard) => {
@@ -72,7 +72,7 @@ const App = () => {
   const handleDeleteCard = (card) => {
     api.removeCard(card._id).then(
       setCards(cards),
-    );
+    ).catch((err) => console.log(err));
   };
 
   const onCardImageClick = (link, caption) => {
