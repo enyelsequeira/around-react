@@ -1,10 +1,9 @@
 /* eslint-disable react/button-has-type */
 /* eslint-disable jsx-a11y/control-has-associated-label */
 import React from 'react';
-import Card from './Card.jsx';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
-const Main = ({ onCardImageClick, onAddCard, onEditAvatar, onEditProfile, cards, setCurrentlySelectedCard, setCards, setIsDeletePlacePopupOpen, handleCardDelete, children }) => {
+const Main = ({ onAddCard, onEditAvatar, onEditProfile, children }) => {
   const userInfo = React.useContext(CurrentUserContext);
 
   return (
