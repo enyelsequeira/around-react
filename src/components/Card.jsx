@@ -2,7 +2,6 @@
 import React, { useState } from 'react';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import api from '../utils/Api';
-import PopupWithForm from './PopUpWithForm';
 
 const Card = ({ card, onCardImageClick, setCards, setCurrentlySelectedCard, setIsDeletePlacePopupOpen }) => {
   const userInfo = React.useContext(CurrentUserContext);

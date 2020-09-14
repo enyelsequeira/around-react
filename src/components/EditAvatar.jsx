@@ -1,6 +1,4 @@
-/* eslint-disable react/jsx-closing-bracket-location */
-import React, { useState, useContext, useRef } from 'react';
-import { CurrentUserContext } from '../contexts/CurrentUserContext';
+import React, { useRef } from 'react';
 import api from '../utils/Api';
 
 const PopupWithForm = ({
@@ -11,23 +9,23 @@ const PopupWithForm = ({
   buttonText,
   setCurrentUser,
 }) => {
-  const currentUser = useContext(CurrentUserContext);
-  const [avatar, setAvatar] = useState(currentUser.avatar);
+  const avatarInputRef = useRef();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    await api.setUserAvatar({ avatar });
+    await api.setUserAvatar({ avatar: avatarInputRef.current.value });
 
-    setCurrentUser(await api.getUserInfo());
     onClose();
+    setCurrentUser(await api.getUserInfo());
   };
 
   return (
     <div
       className={
         isOpen ? `${popupType} modal_active modal` : `${popupType} modal `
-      }>
+      }
+    >
       <div className="modal__info">
         <button
           className="modal__close"
@@ -39,10 +37,9 @@ const PopupWithForm = ({
         <p className="modal__title"> {heading}</p>
         <form className="modal__form" onSubmit={handleSubmit}>
           <input
+            ref={avatarInputRef}
             id="profile-url"
             type="url"
-            value={avatar}
-            onChange={(e) => setAvatar(e.target.value)}
             className="modal__form-profession modal__form-link modal__form-avatar  modal__input"
             name="Imagelink"
             placeholder="Image Link"
@@ -52,7 +49,8 @@ const PopupWithForm = ({
           <button
             className="modal__save-button modal__save"
             type="submit"
-            value="save">
+            value="save"
+          >
             {buttonText}
           </button>
         </form>

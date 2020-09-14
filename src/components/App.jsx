@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import Header from './Header';
 import Main from './Main';
 import PopupWithForm from './PopUpWithForm';
-import AddCard from './AddCard';
+import AddCard from './AddPlacePopup';
 import EditProfile from './EditProfile';
 import EditAvatar from './EditAvatar';
 import ImagePopup from './ImagePopup';
@@ -21,20 +21,51 @@ const App = () => {
   const [imageBackground, setImageBackground] = useState('');
   const [imageCaption, setImageCaption] = useState('');
 
-  const [currentUser, setCurrentUser] = useState('');
+  const [currentUser, setCurrentUser] = useState({ avatar: '', name: '', about: '' });
   const [cards, setCards] = useState([]);
-  const [currentlySelectedCard, setCurrentlySelectedCard] = useState([]);
+  // const [currentlySelectedCard, setCurrentlySelectedCard] = useState([]);
+
+  const updateUser = (name, about) => {
+    setCurrentUser({ ...currentUser, name, about });
+
+    api.setUserInfo({ name, about });
+  };
+
+  // const updateAvatar = (avatar) => {
+  //   setCurrentUser({
+  //     name: currentUser.name,
+  //     about: currentUser.about,
+  //     avatar,
+  //   });
+
+  //   api.setUserAvatar({ avatar });
+  // };
 
   useEffect(() => {
-    const fetchData = async () => {
-      const [fetchedData, fetchedCards] = await Promise.all([api.getUserInfo(), api.getCardList()]);
-
-      setCurrentUser(fetchedData);
-      setCards(fetchedCards);
-    };
-
-    fetchData();
+    api.getUserInfo().then((res) => {
+      setCurrentUser(res);
+    });
   }, []);
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     const [fetchedData, fetchedCards] = await Promise.all([api.getUserInfo(), api.getCardList()]);
+
+  //     setCurrentUser(fetchedData);
+  //     setCards(fetchedCards);
+  //   };
+
+  //   fetchData();
+  // }, []);
+
+  useEffect(() => {
+    api.getCardList().then((res) => {
+      setCards(res);
+    });
+  }, [setCards, cards]);
+
+  const onAddPlace = (newCard) => {
+    api.addCard(newCard);
+  };
 
   return (
     <div className="page">
@@ -42,7 +73,7 @@ const App = () => {
         {/* {console.log(currentUser)} */}
         <Header />
         <Main
-          setCurrentlySelectedCard={setCurrentlySelectedCard}
+          // setCurrentlySelectedCard={setCurrentlySelectedCard}
           setIsDeletePlacePopupOpen={setIsDeletePlacePopupOpen}
           cards={cards}
           setCards={setCards}
@@ -68,7 +99,7 @@ const App = () => {
           popupType="modal__edit"
           isOpen={isEditProfilePopupOpen}
           onClose={() => setIsEditProfilePopupOpen(false)}
-          setCurrentUser={setCurrentUser}
+          updateUser={updateUser}
         />
 
         <AddCard
@@ -78,6 +109,7 @@ const App = () => {
           isOpen={isAddPlacePopupOpen}
           setCards={setCards}
           onClose={() => setIsAddPlacePopupOpen(false)}
+          onAddPlace={onAddPlace}
         />
 
         <PopupWithForm
@@ -86,7 +118,7 @@ const App = () => {
           popupType="modal__deleteimage"
           isOpen={isDeletePlacePopupOpen}
           setCards={setCards}
-          currentlySelectedCard={currentlySelectedCard}
+          // currentlySelectedCard={currentlySelectedCard}
           onClose={() => setIsDeletePlacePopupOpen(false)}
         />
 
@@ -97,6 +129,7 @@ const App = () => {
           setCurrentUser={setCurrentUser}
           isOpen={isEditAvatarPopupOpen}
           onClose={() => setIsEditAvatarPopupOpen(false)}
+          // updateAvatar={updateAvatar}
         />
 
         <ImagePopup
@@ -113,4 +146,5 @@ const App = () => {
     </div>
   );
 };
+
 export default App;

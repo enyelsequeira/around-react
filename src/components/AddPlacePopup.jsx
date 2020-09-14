@@ -2,26 +2,43 @@
 import React, { useState } from 'react';
 import api from '../utils/Api';
 
-const PopupWithForm = ({
+const AddPlacePopup = ({
   isOpen,
   popupType,
   onClose,
   heading,
   buttonText,
   setCards,
+  onAddPlace,
 }) => {
   const [name, setName] = useState('');
   const [link, setLink] = useState('');
 
-  const handleSubmit = async (e) => {
+  const handleNewCardName = (e) => {
+    setName(e.target.value);
+  };
+  const handleNewCardLink = (e) => {
+    setLink(e.target.value);
+  };
+
+  const handleSubmit = (e) => {
     e.preventDefault();
-
-    await api.addCard({ name, link });
-
-    setCards(await api.getCardList());
-
+    onAddPlace({
+      name,
+      link,
+    });
     onClose();
   };
+
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+
+  //   await api.addCard({ name, link });
+
+  //   setCards(await api.getCardList());
+
+  //   onClose();
+  // };
 
   return (
     <div
@@ -44,7 +61,7 @@ const PopupWithForm = ({
             type="text"
             name="Title"
             value={name}
-            onChange={(e) => setName(e.target.value)}
+            onChange={handleNewCardName}
             placeholder="title"
             required
             maxLength="30"
@@ -59,7 +76,7 @@ const PopupWithForm = ({
             name="Imagelink"
             placeholder="image"
             value={link}
-            onChange={(e) => setLink(e.target.value)}
+            onChange={handleNewCardLink}
             required
           />
           <span id="card-url-error" className="modal__formerror" />
@@ -75,4 +92,4 @@ const PopupWithForm = ({
     </div>
   );
 };
-export default PopupWithForm;
+export default AddPlacePopup;

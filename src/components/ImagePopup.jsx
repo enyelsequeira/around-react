@@ -10,7 +10,7 @@ const ImagePopup = ({ isOpen, onClose, image, title }) => (
       <img
         className="modal__figure-image"
         src={image}
-        onClick={isOpen}
+        // onClick={isOpen}
         alt={title}
       />
       <p className="modal__figure-caption">{title}</p>

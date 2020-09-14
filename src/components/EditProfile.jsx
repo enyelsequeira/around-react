@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-closing-bracket-location */
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import api from '../utils/Api';
 
@@ -9,19 +9,20 @@ const PopupWithForm = ({
   onClose,
   heading,
   buttonText,
-  setCurrentUser,
+  updateUser,
 }) => {
   const currentUser = useContext(CurrentUserContext);
   const [name, setName] = useState(currentUser.name);
   const [about, setAbout] = useState(currentUser.about);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
-    await api.setUserInfo({ name, about });
-
-    setCurrentUser(await api.getUserInfo());
     onClose();
+    updateUser(name, about);
+    // await api.setUserInfo({ name, about });
+
+    // setCurrentUser(await api.getUserInfo());
   };
 
   return (
@@ -44,7 +45,6 @@ const PopupWithForm = ({
             className="modal__form-name modal__input"
             type="text"
             name="name"
-            value={name}
             onChange={(e) => setName(e.target.value)}
             placeholder="Jacques"
             required
@@ -58,7 +58,6 @@ const PopupWithForm = ({
             className="modal__form-profession modal__input"
             type="text"
             name="job"
-            value={about}
             onChange={(e) => setAbout(e.target.value)}
             placeholder="Explorer"
             required
