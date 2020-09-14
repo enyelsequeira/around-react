@@ -4,7 +4,7 @@ import React from 'react';
 import Card from './Card.jsx';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
-const Main = ({ onCardImageClick, onAddCard, onEditAvatar, onEditProfile, cards, setCurrentlySelectedCard, setCards, setIsDeletePlacePopupOpen, handleCardDelete }) => {
+const Main = ({ onCardImageClick, onAddCard, onEditAvatar, onEditProfile, cards, setCurrentlySelectedCard, setCards, setIsDeletePlacePopupOpen, handleCardDelete, children }) => {
   const userInfo = React.useContext(CurrentUserContext);
 
   return (
@@ -31,17 +31,7 @@ const Main = ({ onCardImageClick, onAddCard, onEditAvatar, onEditProfile, cards,
       </section>
       <section className="elements">
         <ul className="elements__list">
-          {cards.map((card, i) => (
-            <Card
-              handleCardDelete={handleCardDelete}
-              setIsDeletePlacePopupOpen={setIsDeletePlacePopupOpen}
-              key={i}
-              card={card}
-              onCardImageClick={() => onCardImageClick(card.link, card.name)}
-              setCurrentlySelectedCard={setCurrentlySelectedCard}
-              setCards={setCards}
-            />
-          ))}
+          {children}
         </ul>
       </section>
     </main>

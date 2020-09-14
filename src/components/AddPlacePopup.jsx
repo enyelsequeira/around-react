@@ -1,6 +1,5 @@
 /* eslint-disable react/jsx-closing-bracket-location */
 import React, { useState } from 'react';
-import api from '../utils/Api';
 
 const AddPlacePopup = ({
   isOpen,
@@ -8,7 +7,6 @@ const AddPlacePopup = ({
   onClose,
   heading,
   buttonText,
-  setCards,
   onAddPlace,
 }) => {
   const [name, setName] = useState('');

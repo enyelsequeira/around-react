@@ -1,7 +1,6 @@
 /* eslint-disable react/jsx-closing-bracket-location */
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
-import api from '../utils/Api';
 
 const PopupWithForm = ({
   isOpen,

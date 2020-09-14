@@ -10,6 +10,7 @@ import ImagePopup from './ImagePopup';
 import Footer from './Footer';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import api from '../utils/Api';
+import Card from './Card';
 
 const App = () => {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
@@ -66,7 +67,19 @@ const App = () => {
   const onAddPlace = (newCard) => {
     api.addCard(newCard);
   };
+  // deleting card
 
+  const handleDeleteCard = (card) => {
+    api.removeCard(card._id).then(
+      setCards(cards),
+    );
+  };
+
+  const onCardImageClick = (link, caption) => {
+    setIsImageOpen(true);
+    setImageBackground(link);
+    setImageCaption(caption);
+  };
   return (
     <div className="page">
       <CurrentUserContext.Provider value={currentUser}>
@@ -91,7 +104,20 @@ const App = () => {
             setImageBackground(link);
             setImageCaption(caption);
           }}
-        />
+
+        >
+          {cards.map((card, i) => (
+            <Card
+              handleDeleteCard={() => { handleDeleteCard(card); }}
+              setIsDeletePlacePopupOpen={setIsDeletePlacePopupOpen}
+              key={i}
+              card={card}
+              onCardImageClick={() => onCardImageClick(card.link, card.name)}
+              // setCurrentlySelectedCard={setCurrentlySelectedCard}
+              setCards={setCards}
+            />
+          ))}
+        </Main>
 
         <EditProfile
           heading="Edit Profile"

@@ -1,9 +1,9 @@
 /* eslint-disable jsx-a11y/control-has-associated-label */
-import React, { useState } from 'react';
+import React from 'react';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import api from '../utils/Api';
 
-const Card = ({ card, onCardImageClick, setCards, setCurrentlySelectedCard, setIsDeletePlacePopupOpen }) => {
+const Card = ({ card, onCardImageClick, setCards, handleDeleteCard }) => {
   const userInfo = React.useContext(CurrentUserContext);
   const currentUserId = userInfo._id;
   const isOwn = card.owner._id === currentUserId;
@@ -31,10 +31,7 @@ const Card = ({ card, onCardImageClick, setCards, setCurrentlySelectedCard, setI
       <button
         className={cardDeleteButtonClassName}
         type="button"
-        onClick={() => {
-          setIsDeletePlacePopupOpen(true);
-          setCurrentlySelectedCard(card);
-        }}
+        onClick={handleDeleteCard}
       />
       )}
       <div className="elements__info">
