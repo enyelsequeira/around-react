@@ -2,7 +2,7 @@
 import React, { useState, useContext } from 'react';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
-const PopupWithForm = ({
+const EditProfilePopup = ({
   isOpen,
   popupType,
   onClose,
@@ -76,4 +76,4 @@ const PopupWithForm = ({
     </div>
   );
 };
-export default PopupWithForm;
+export default EditProfilePopup;
