@@ -28,21 +28,11 @@ const AddPlacePopup = ({
     onClose();
   };
 
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-
-  //   await api.addCard({ name, link });
-
-  //   setCards(await api.getCardList());
-
-  //   onClose();
-  // };
-
   return (
     <div
       className={
-      isOpen ? `${popupType} modal_active modal` : `${popupType} modal `
-    }>
+        isOpen ? `${popupType} modal_active modal` : `${popupType} modal `
+      }>
       <div className="modal__info">
         <button
           className="modal__close"
@@ -50,7 +40,7 @@ const AddPlacePopup = ({
           data-close
           type="button"
           onClick={onClose}
-      />
+        />
         <p className="modal__title"> {heading}</p>
         <form className="modal__form" onSubmit={handleSubmit}>
           <input
@@ -81,8 +71,7 @@ const AddPlacePopup = ({
           <button
             className="modal__save-button modal__save"
             type="submit"
-            value="save"
-         >
+            value="save">
             {buttonText}
           </button>
         </form>

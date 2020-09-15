@@ -1,7 +1,6 @@
 /* eslint-disable jsx-a11y/control-has-associated-label */
 import React from 'react';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
-import api from '../utils/Api';
 
 const Card = ({ card, setCards, onCardClick, onCardLike, onCardDelete }) => {
   const currentUser = React.useContext(CurrentUserContext);
@@ -26,11 +25,11 @@ const Card = ({ card, setCards, onCardClick, onCardLike, onCardDelete }) => {
 
   const isLiked = card.likes.some((i) => i._id === currentUser._id);
 
-  const handleCardLike = async () => {
-    await api.changeLikeCardStatus(card._id, !isLiked);
+  // const handleCardLike = async () => {
+  //   await api.changeLikeCardStatus(card._id, !isLiked);
 
-    setCards(await api.getCardList());
-  };
+  //   setCards(await api.getCardList());
+  // };
 
   return (
     <li className="elements__item">

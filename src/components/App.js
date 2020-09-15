@@ -75,7 +75,6 @@ const App = () => {
     setSelectedCard('');
   }
   const onAddPlace = (newCard) => {
-    // api.addCard(newCard);
     api
       .addCard(newCard)
       .then((newOne) => setCards([...cards, newOne]))

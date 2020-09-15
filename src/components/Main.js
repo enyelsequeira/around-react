@@ -4,7 +4,15 @@ import React from 'react';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import Card from './Card';
 
-const Main = (props) => {
+const Main = ({
+  onEditAvatar,
+  onEditProfile,
+  onAddCard,
+  onCardLike,
+  onCardClick,
+  onCardDelete,
+  cards,
+}) => {
   const userInfo = React.useContext(CurrentUserContext);
 
   return (
@@ -16,10 +24,7 @@ const Main = (props) => {
             src={userInfo.avatar}
             alt="profile"
           />
-          <button
-            className="profile__avatar-overlay"
-            onClick={props.onEditAvatar}
-          />
+          <button className="profile__avatar-overlay" onClick={onEditAvatar} />
         </div>
         <div className="profile__info">
           <h2 className="profile__name">{userInfo.name}</h2>
@@ -27,25 +32,25 @@ const Main = (props) => {
           <button
             className="profile__info-btn"
             type="button"
-            onClick={props.onEditProfile}
+            onClick={onEditProfile}
           />
         </div>
-        <button className="profile__button-add" onClick={props.onAddCard} />
+        <button className="profile__button-add" onClick={onAddCard} />
       </section>
       <section className="elements">
         <ul className="elements__list">
-          {props.cards.map((card, i) => (
+          {cards.map((card, i) => (
             <Card
               key={i}
               card={card}
               onCardLike={(card) => {
-                props.onCardLike(card);
+                onCardLike(card);
               }}
               onCardClick={(card) => {
-                props.onCardClick(card);
+                onCardClick(card);
               }}
               onCardDelete={(card) => {
-                props.onCardDelete(card);
+                onCardDelete(card);
               }}
             />
           ))}

@@ -3,25 +3,22 @@
 /* eslint-disable react/button-has-type */
 import React from 'react';
 
-const ImagePopup = (props) => (
+const ImagePopup = ({ card, onClose }) => (
   // console.log(props);
 
   <div
     className={`modal figure  ${
-      props.card !== '' ? 'modal figure modal_active' : ''
+      card !== '' ? 'modal figure modal_active' : ''
     }`}>
     <div className="modal__figure-container">
-      <button
-        className="modal__close modal__figure-exit"
-        onClick={props.onClose}
-      />
+      <button className="modal__close modal__figure-exit" onClick={onClose} />
       <img
         className="modal__figure-image"
-        src={`${props.card.link}`}
+        src={`${card.link}`}
         // onClick={isOpen}
-        alt={props.card.name}
+        alt={card.name}
       />
-      <p className="modal__figure-caption">{props.card.name}</p>
+      <p className="modal__figure-caption">{card.name}</p>
     </div>
   </div>
 );
