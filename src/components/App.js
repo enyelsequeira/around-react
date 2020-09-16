@@ -35,12 +35,6 @@ const App = () => {
     setSelectedCard(card);
   };
 
-  const updateUser = (name, about) => {
-    setCurrentUser({ ...currentUser, name, about });
-
-    api.setUserInfo({ name, about }).catch((err) => console.log(err));
-  };
-
   useEffect(() => {
     api
       .getUserInfo()
@@ -97,6 +91,27 @@ const App = () => {
       })
       .catch((err) => console.log(err));
   }
+
+  const updateUser = (name, about) => {
+    api
+      .setUserInfo({ name, about })
+      .then((data) => {
+        console.log(data);
+        setCurrentUser({ ...currentUser, name: data.name, about: data.about });
+      })
+      .then(() => {
+        closeAllPopups();
+      })
+      .catch((err) => console.log(err));
+    // setCurrentUser({ ...currentUser, name, about });
+
+    // api
+    //   .setUserInfo({ name, about })
+    //   .then(() => {
+    //     closeAllPopups();
+    //   })
+    //   .catch((err) => console.log(err));
+  };
   return (
     <div className="page">
       <CurrentUserContext.Provider value={currentUser}>

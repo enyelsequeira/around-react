@@ -11,14 +11,19 @@ const EditProfilePopup = ({
   updateUser,
 }) => {
   const currentUser = useContext(CurrentUserContext);
-  const [name, setName] = useState(currentUser.name);
-  const [about, setAbout] = useState(currentUser.about);
+  const [name, setName] = useState('');
+  const [about, setAbout] = useState('');
 
+  function handleChangeName(e) {
+    setName(e.target.value);
+  }
+  function handleDescription(e) {
+    setAbout(e.target.value);
+  }
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    onClose();
     updateUser(name, about);
+    // updateUser(name, about);
     // await api.setUserInfo({ name, about });
 
     // setCurrentUser(await api.getUserInfo());
@@ -49,11 +54,13 @@ const EditProfilePopup = ({
             required
             maxLength="40"
             minLength="2"
+            onChange={handleChangeName}
             defaultValue={currentUser.name}
           />
           <span id="profile-name-error" className="modal__formerror" />
 
           <input
+            onChange={handleDescription}
             id="profile-text"
             className="modal__form-profession modal__input"
             type="text"
