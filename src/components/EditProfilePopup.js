@@ -49,6 +49,7 @@ const EditProfilePopup = ({
             required
             maxLength="40"
             minLength="2"
+            defaultValue={currentUser.name}
           />
           <span id="profile-name-error" className="modal__formerror" />
 
@@ -62,6 +63,7 @@ const EditProfilePopup = ({
             required
             maxLength="200"
             minLength="2"
+            defaultValue={currentUser.about}
           />
           <span id="profile-text-error" className="modal__formerror" />
 

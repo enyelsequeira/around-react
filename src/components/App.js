@@ -64,8 +64,12 @@ const App = () => {
   const handleDeleteCard = (card) => {
     api
       .removeCard(card._id)
-      .then(setCards(cards))
+      .then(() => setCards([...cards]))
       .catch((err) => console.log(err));
+    // api
+    //   .removeCard(card._id)
+    //   .then(setCards(cards))
+    //   .catch((err) => console.log(err));
   };
 
   function closeAllPopups() {
@@ -83,6 +87,16 @@ const App = () => {
       })
       .catch((err) => console.log(err));
   };
+  function handleUpdateAvatar(avatar) {
+    setCurrentUser({ ...currentUser, avatar });
+
+    api
+      .setUserAvatar({ avatar })
+      .then(() => {
+        closeAllPopups();
+      })
+      .catch((err) => console.log(err));
+  }
   return (
     <div className="page">
       <CurrentUserContext.Provider value={currentUser}>
@@ -141,7 +155,7 @@ const App = () => {
           setCurrentUser={setCurrentUser}
           isOpen={isEditAvatarPopupOpen}
           onClose={() => setIsEditAvatarPopupOpen(false)}
-          // updateAvatar={updateAvatar}
+          onUpdateAvatar={handleUpdateAvatar}
         />
 
         <ImagePopup onClose={closeAllPopups} card={selectedCard} />

@@ -1,31 +1,42 @@
-import React, { useRef } from 'react';
+import React, { useRef, useContext, useState } from 'react';
 import api from '../utils/Api';
+import { CurrentUserContext } from '../contexts/CurrentUserContext.js';
 
-const PopupWithForm = ({
+const EditAvatarPopup = ({
   isOpen,
   popupType,
   onClose,
   heading,
   buttonText,
   setCurrentUser,
+  onUpdateAvatar,
 }) => {
-  const avatarInputRef = useRef();
+  const currentUser = useContext(CurrentUserContext);
+  const [avatar, setAvatar] = useState(currentUser.avatar);
 
-  const handleSubmit = async (e) => {
+  const avatarInputRef = useRef(avatar);
+
+  function handleAvatarChange(e) {
+    setAvatar(avatarInputRef.current.value);
+  }
+  function handleSubmit(e) {
     e.preventDefault();
+    onUpdateAvatar(avatar);
+  }
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
 
-    await api.setUserAvatar({ avatar: avatarInputRef.current.value });
+  //   await api.setUserAvatar({ avatar: avatarInputRef.current.value });
 
-    onClose();
-    setCurrentUser(await api.getUserInfo());
-  };
+  //   onClose();
+  //   setCurrentUser(await api.getUserInfo());
+  // };
 
   return (
     <div
       className={
         isOpen ? `${popupType} modal_active modal` : `${popupType} modal `
-      }
-    >
+      }>
       <div className="modal__info">
         <button
           className="modal__close"
@@ -38,6 +49,7 @@ const PopupWithForm = ({
         <form className="modal__form" onSubmit={handleSubmit}>
           <input
             ref={avatarInputRef}
+            onChange={handleAvatarChange}
             id="profile-url"
             type="url"
             className="modal__form-profession modal__form-link modal__form-avatar  modal__input"
@@ -49,8 +61,7 @@ const PopupWithForm = ({
           <button
             className="modal__save-button modal__save"
             type="submit"
-            value="save"
-          >
+            value="save">
             {buttonText}
           </button>
         </form>
@@ -58,4 +69,4 @@ const PopupWithForm = ({
     </div>
   );
 };
-export default PopupWithForm;
+export default EditAvatarPopup;

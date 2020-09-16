@@ -25,7 +25,6 @@ const AddPlacePopup = ({
       name,
       link,
     });
-    onClose();
   };
 
   return (
